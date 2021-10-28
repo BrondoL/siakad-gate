@@ -8,7 +8,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Symfony\Component\HttpFoundation\Cookie;
 
 class AuthController extends Controller
 {
@@ -81,7 +80,6 @@ class AuthController extends Controller
     public function logout()
     {
         JWTAuth::invalidate(JWTAuth::getToken());
-
         return response()->json(['message' => 'Successfully logged out']);
     }
 
@@ -96,7 +94,9 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => JWTAuth::factory()->getTTL() * 60,
-            'data' => JWTAuth::user()
-        ])->withCookie(new Cookie('access_token', $token));
+            'username' => JWTAuth::user()->username,
+            'pegawai_id' => JWTAuth::user()->pegawai_id,
+            'npm' => JWTAuth::user()->npm,
+        ]);
     }
 }
