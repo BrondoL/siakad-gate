@@ -17,7 +17,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     protected $primaryKey = 'user_id';
     protected $fillable = [
-        'username', 'email', 'password', 'ip', 'is_active', 'pegawai_id', 'npm', 'remember_token', 'created_at', 'updated_at'
+        'username', 'email', 'password', 'ip', 'is_active', 'role_id', 'remember_token', 'created_at', 'updated_at'
     ];
     protected $hidden = [
         'password', 'remember_token'
@@ -38,8 +38,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return [
             'uid' => $this->user_id,
             'username' => $this->username,
-            'pegawai_id' => $this->pegawai_id,
-            'npm'   => $this->npm
+            'role_id' => $this->role_id,
         ];
     }
 }

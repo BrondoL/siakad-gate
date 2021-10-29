@@ -23,6 +23,7 @@ class AuthController extends Controller
             'username' => 'required|min:3|max:255|unique:users,username',
             'email' => 'required|email:rfc,dns|unique:users,email',
             'password' => 'required|confirmed|min:5|max:255',
+            'role_id'   => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -34,8 +35,7 @@ class AuthController extends Controller
             'password'      => Hash::make($request->password, ['rounds' => 12]),
             'email'         => $request->email,
             'ip'            => $request->ip(),
-            'pegawai_id'    => $request->pegawai_id,
-            'npm'           => $request->npm,
+            'role_id'       => $request->role_id,
         ]);
 
         if ($user) {
@@ -95,8 +95,7 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => JWTAuth::factory()->getTTL() * 60,
             'username' => JWTAuth::user()->username,
-            'pegawai_id' => JWTAuth::user()->pegawai_id,
-            'npm' => JWTAuth::user()->npm,
+            'role_id' => JWTAuth::user()->role_id,
         ]);
     }
 }
