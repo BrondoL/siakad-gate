@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call('UsersTableSeeder');
+        User::create([
+            'username'      => "admin",
+            'password'      => Hash::make("admin", ['rounds' => 12]),
+            'email'         => "admin@gmail.com",
+            'ip'            => "127.0.0.1",
+            'role_id'       => 1,
+        ]);
     }
 }

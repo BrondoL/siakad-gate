@@ -55,6 +55,8 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'username' => 'required|exists:users,username',
             'password' => 'required'
+        ], [
+            'username.exists' => "Username atau Password Salah!"
         ]);
 
         if ($validator->fails()) {
